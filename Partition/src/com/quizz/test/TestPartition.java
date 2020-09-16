@@ -23,6 +23,7 @@ class TestPartition {
 	
 	@Test
 	void testList2() {
+		// test list with max size = 2
 		List<Integer>[] expected = new ArrayList[3];
 		maxSize = 2;
 		
@@ -52,6 +53,7 @@ class TestPartition {
 	
 	@Test
 	void testList3() {
+		// test list with max size = 3
 		List<Integer>[] expected = new ArrayList[2];
 		maxSize = 3; 
 		
@@ -77,6 +79,7 @@ class TestPartition {
 	
 	@Test
 	void testList1() {
+		// test list with max size = 1
 		maxSize = 1;
 		List<Integer>[] expected = new ArrayList[5];
 		
