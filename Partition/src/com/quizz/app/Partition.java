@@ -7,44 +7,38 @@ import java.util.List;
 public class Partition {
 
 	public static void main(String[] args) {
-		
+
 		// initialize list = [1,2,3,4,5]
-		List<Integer> list = new ArrayList<Integer>() {
-			{
-				add(1);
-				add(2);
-				add(3);
-				add(4);
-				add(5);
-			}
-		};
+		List<Integer> list = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
+
 		// partition's size
 		int size = 2;
-		
+
 		// display result
-		System.out.println(Arrays.toString(Partition(list, size)));
+		System.out.println(partition(list, size));
 	}
 
-	public static <T> List[] Partition(List<T> list, int n) {
-
+	public static List<List<Integer>> partition(List<Integer> list, int n) {
 		int size = list.size();
 
 		// get number of partitions m
 		int m = size / n;
-		if (size % n != 0)
+		boolean pair = true;
+		if (size % n != 0) {
 			m++;
-
-		// initialize m empty lists
-		List<T>[] partition = new ArrayList[m];
-		for (int i = 0; i < m; i++)
-			partition[i] = new ArrayList();
-
-		// process each element of the list and add it corresponding
-		// list based on its position in the initial list
-		for (int i = 0; i < size; i++) {
-			int index = i / n;
-			partition[index].add(list.get(i));
+			pair = false;
 		}
-		return partition;
+
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		for (int i = 0; i < m; i++) {
+			List<Integer> partitionList = new ArrayList<Integer>();
+			if (i == m - 1 && !pair) {
+				partitionList = list.subList(i * n, size);
+			} else {
+				partitionList = list.subList(i * n, n * (i + 1));
+			}
+			result.add(partitionList);
+		}
+		return result;
 	}
 }

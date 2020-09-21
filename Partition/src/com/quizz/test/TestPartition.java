@@ -3,6 +3,7 @@ package com.quizz.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,112 +13,52 @@ import com.quizz.app.Partition;
 class TestPartition {
 
 	private int maxSize;
-	private final List<Integer> list = new ArrayList<Integer>(){{
-        add(1);
-        add(2);
-        add(3);
-        add(4);
-        add(5);
-          }};
-          
-	
+	private final List<Integer> list = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
+
 	@Test
 	void testList2() {
 		// test list with max size = 2
-		List<Integer>[] expected = new ArrayList[3];
+		List<List<Integer>> expected = new ArrayList<List<Integer>>();
 		maxSize = 2;
-		
-		for (int i = 0; i < 3; i++)
-			expected[i] = new ArrayList();
-		
-		expected[0].add(0, 1); 
-		expected[0].add(1, 2);
-		
-		expected[1].add(0, 3); 
-		expected[1].add(1, 4);
-		
-		expected[2].add(0, 5);
-		
-		assertEquals(expected[0], Partition.Partition(list, maxSize)[0]);
-		assertEquals(expected[0].size(), Partition.Partition(list, maxSize)[0].size());
-		
-		assertEquals(expected[1], Partition.Partition(list, maxSize)[1]);
-		assertEquals(expected[1].size(), Partition.Partition(list, maxSize)[1].size());
-		
-		assertEquals(expected[2], Partition.Partition(list, maxSize)[2]);
-		assertEquals(expected[2].size(), Partition.Partition(list, maxSize)[2].size());
-		
-		assertEquals(expected.length, Partition.Partition(list, maxSize).length);
-		assertEquals(expected.length, 3);
+
+		expected.add(new ArrayList<Integer>(Arrays.asList(1, 2)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(3, 4)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(5)));
+
+		assertEquals(expected, Partition.partition(list, maxSize));
 	}
-	
+
 	@Test
 	void testList3() {
 		// test list with max size = 3
-		List<Integer>[] expected = new ArrayList[2];
-		maxSize = 3; 
-		
-		for (int i = 0; i < 2; i++)
-			expected[i] = new ArrayList();
-		
-		expected[0].add(0, 1); 
-		expected[0].add(1, 2);
-		expected[0].add(2, 3);
-		
-		expected[1].add(0, 4); 
-		expected[1].add(1, 5);
-		
-		assertEquals(expected[0], Partition.Partition(list, maxSize)[0]);
-		assertEquals(expected[0].size(), Partition.Partition(list, maxSize)[0].size());
-		
-		assertEquals(expected[1], Partition.Partition(list, maxSize)[1]);
-		assertEquals(expected[1].size(), Partition.Partition(list, maxSize)[1].size());
-		
-		assertEquals(expected.length, Partition.Partition(list, maxSize).length);
-		assertEquals(expected.length, 2);
+		List<List<Integer>> expected = new ArrayList<List<Integer>>();
+		maxSize = 3;
+
+		expected.add(new ArrayList<Integer>(Arrays.asList(1, 2, 3)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(4, 5)));
+
+		assertEquals(expected, Partition.partition(list, maxSize));
 	}
-	
+
 	@Test
 	void testList1() {
 		// test list with max size = 1
 		maxSize = 1;
-		List<Integer>[] expected = new ArrayList[5];
-		
-		for (int i = 0; i < 5; i++)
-			expected[i] = new ArrayList();
-		
-		expected[0].add(0, 1); 
-		expected[1].add(0, 2);
-		expected[2].add(0, 3);
-		expected[3].add(0, 4);
-		expected[4].add(0, 5);
-		
-		assertEquals(expected[0], Partition.Partition(list, maxSize)[0]);
-		assertEquals(expected[0].size(), Partition.Partition(list, maxSize)[0].size());
-		
-		assertEquals(expected[1], Partition.Partition(list, maxSize)[1]);
-		assertEquals(expected[1].size(), Partition.Partition(list, maxSize)[1].size());
-		
-		assertEquals(expected[2], Partition.Partition(list, maxSize)[2]);
-		assertEquals(expected[2].size(), Partition.Partition(list, maxSize)[2].size());
-		
-		assertEquals(expected[2], Partition.Partition(list, maxSize)[2]);
-		assertEquals(expected[2].size(), Partition.Partition(list, maxSize)[2].size());
-		
-		assertEquals(expected[3], Partition.Partition(list, maxSize)[3]);
-		assertEquals(expected[3].size(), Partition.Partition(list, maxSize)[3].size());
-		
-		assertEquals(expected[4], Partition.Partition(list, maxSize)[4]);
-		assertEquals(expected[4].size(), Partition.Partition(list, maxSize)[4].size());
-		
-		assertEquals(expected.length, Partition.Partition(list, maxSize).length);
-		assertEquals(expected.length, 5);
+		List<List<Integer>> expected = new ArrayList<List<Integer>>();
+
+		expected.add(new ArrayList<Integer>(Arrays.asList(1)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(2)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(3)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(4)));
+		expected.add(new ArrayList<Integer>(Arrays.asList(5)));
+
+		assertEquals(expected, Partition.partition(list, maxSize));
 	}
-	
+
 	@Test
 	public void emptyListTest() {
-		List<Integer> list=new ArrayList<Integer>(0);
-	    assertEquals(0, Partition.Partition(list, 2).length);
+		List<Integer> list = new ArrayList<Integer>(0);
+		assertEquals(0, Partition.partition(list, 2).size());
 	}
 
 }
